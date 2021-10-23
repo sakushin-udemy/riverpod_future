@@ -33,6 +33,8 @@ class MyHomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final postalCode = ref.watch(apiProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -44,6 +46,19 @@ class MyHomePage extends ConsumerWidget {
             TextField(
               onChanged: (text) => onPostalCodeChanged(ref, text),
             ),
+            postalCode.when(
+              data: (data) => Column(
+                children: [
+                  Text(data.data[0].en.prefecture),
+                  Text(data.data[0].en.address1),
+                  Text(data.data[0].en.address2),
+                  Text(data.data[0].en.address3),
+                  Text(data.data[0].en.address4),
+                ],
+              ),
+              error: error,
+              loading: loading,
+            )
           ],
         ),
       ),
