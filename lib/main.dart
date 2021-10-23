@@ -56,8 +56,8 @@ class MyHomePage extends ConsumerWidget {
                   Text(data.data[0].en.address4),
                 ],
               ),
-              error: error,
-              loading: loading,
+              error: (error, stack, data) => Text(error.toString()),
+              loading: (data) => const CircularProgressIndicator(),
             )
           ],
         ),
