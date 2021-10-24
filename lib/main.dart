@@ -40,26 +40,43 @@ class MyHomePage extends ConsumerWidget {
         title: Text(title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextField(
-              onChanged: (text) => onPostalCodeChanged(ref, text),
-            ),
-            postalCode.when(
-              data: (data) => Column(
-                children: [
-                  Text(data.data[0].en.prefecture),
-                  Text(data.data[0].en.address1),
-                  Text(data.data[0].en.address2),
-                  Text(data.data[0].en.address3),
-                  Text(data.data[0].en.address4),
-                ],
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              TextField(
+                onChanged: (text) => onPostalCodeChanged(ref, text),
               ),
-              error: (error, stack, data) => Text(error.toString()),
-              loading: (data) => const CircularProgressIndicator(),
-            )
-          ],
+              Expanded(
+                child: postalCode.when(
+                  data: (data) => ListView.separated(
+                    itemCount: data.data.length,
+                    itemBuilder: (context, index) => ListTile(
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(data.data[index].en.prefecture),
+                          Text(data.data[index].en.address1),
+                          Text(data.data[index].en.address2),
+                          Text(data.data[index].en.address3),
+                          Text(data.data[index].en.address4),
+                        ],
+                      ),
+                    ),
+                    separatorBuilder: (context, index) => Divider(
+                      color: Colors.black,
+                    ),
+                  ),
+                  error: (error, stack, data) => Text(error.toString()),
+                  loading: (data) => AspectRatio(
+                    aspectRatio: 1,
+                    child: const CircularProgressIndicator(),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
