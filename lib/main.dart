@@ -68,8 +68,8 @@ class MyHomePage extends ConsumerWidget {
                       color: Colors.black,
                     ),
                   ),
-                  error: (error, stack, data) => Text(error.toString()),
-                  loading: (data) => AspectRatio(
+                  error: (error, stack) => Text(error.toString()),
+                  loading: () => AspectRatio(
                     aspectRatio: 1,
                     child: const CircularProgressIndicator(),
                   ),
@@ -89,7 +89,7 @@ class MyHomePage extends ConsumerWidget {
 
     try {
       int.parse(text);
-      ref.watch(postalCodeProvider).state = text;
+      ref.watch(postalCodeProvider.notifier).state = text;
       print(text);
     } catch (ex) {}
   }

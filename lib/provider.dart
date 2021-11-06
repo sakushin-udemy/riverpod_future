@@ -8,7 +8,7 @@ import 'package:riverpod_future/data/postal_code.dart';
 StateProvider<String> postalCodeProvider = StateProvider((ref) => '');
 
 FutureProvider<PostalCode> apiProvider = FutureProvider((ref) async {
-  final postalcode = ref.watch(postalCodeProvider).state;
+  final postalcode = ref.watch(postalCodeProvider);
   if (postalcode.length != 7) {
     throw Exception("Postal Code must be 7 charactors");
   }
