@@ -36,7 +36,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                 onChanged: _vm.onPostalcodeChanged,
               ),
               Expanded(
-                child: _vm.postalCodeWithFamily(_vm.postalcode).when(
+                child: _vm.postalCodeWithGenerator(_vm.postalcode).when(
                       data: (data) => ListView.separated(
                         itemCount: data.data.length,
                         itemBuilder: (context, index) => ListTile(
