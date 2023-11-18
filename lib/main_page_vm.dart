@@ -1,6 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_future/data/read_postal_code.dart';
 
 import 'data/postal_code.dart';
 import 'main_logic.dart';
@@ -23,6 +22,9 @@ class MainPageVM {
 
   AsyncValue<PostalCode> postalCodeWithFamily(String postcode) =>
       _ref.watch(_apiFamilyProvider(postcode));
+
+  AsyncValue<PostalCode> postalCodeWithGenerator(String postcode) =>
+      _ref.watch(readPotalCodeProvider(postalCode: postcode));
 
   void setRef(WidgetRef ref) {
     _ref = ref;
